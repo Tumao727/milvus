@@ -169,13 +169,13 @@ message CreateIndexRequest {
 
 14. There is a background service, `indexBuildLoop`, in the `IndexNode`. `indexBuildLoop` would call `scheduleIndexBuildTask` to get a `IndexBuildTask` from `IndexBuildQueue`, and then start another `goroutine` to build index and update meta.
 
-*Node*: `InexNode` will not notify the `QueryCoord` to load the index file, if the users want to speed up seach by these index files, he should call `ReleaseCollection` firstly, then call `LoadCollection` to load these index files.
+*Node*: `InexNode` will not notify the `QueryCoord` to load the index file, if user wants to speed up seach by these index files, he should call `ReleaseCollection` firstly, then call `LoadCollection` to load these index files.
 
-15.  As mentioned earlier, `RootCoord` would only search on these flushed segments on `CreateIndex` request, the following figure show how to deal with the newly add segments.  
+1.   As mentioned earlier, `RootCoord` would only search on these flushed segments on `CreateIndex` request, the following figure show how to deal with the newly add segments.  
 
 ![data_coord_flushed](./graphs/milvus_create_index_data_coord_flushed.png)
 
-16. When a segment has been flushed, `DataCoord` would notify `RootCoord` via `SegmentFlushCompleted`, the `proto` is defined as follow:   
+1.  When a segment has been flushed, `DataCoord` would notify `RootCoord` via `SegmentFlushCompleted`, the `proto` is defined as follow:   
 ```proto
 service RootCoord {
   ...
